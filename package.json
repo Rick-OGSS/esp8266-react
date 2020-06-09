@@ -1,0 +1,22 @@
+{
+  "name": "esp8266-react",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/rjwats/esp8266-react.svg?branch=master)](https://travis-ci.org/rjwats/esp8266-react)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rick-OGSS/esp8266-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rick-OGSS/esp8266-react/issues"
+  },
+  "homepage": "https://github.com/Rick-OGSS/esp8266-react#readme"
+}
