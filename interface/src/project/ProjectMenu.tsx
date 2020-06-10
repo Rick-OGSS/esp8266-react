@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 
 import { PROJECT_PATH } from '../api';
+import { AcUnitOutlined } from '@material-ui/icons';
 
 class ProjectMenu extends Component<RouteComponentProps> {
 
@@ -14,9 +14,9 @@ class ProjectMenu extends Component<RouteComponentProps> {
       <List>
         <ListItem to={`/${PROJECT_PATH}/sp70/`} selected={path.startsWith(`/${PROJECT_PATH}/sp70/`)} button component={Link}>
           <ListItemIcon>
-            <SettingsRemoteIcon />
+            <AcUnitOutlined />
           </ListItemIcon>
-          <ListItemText primary="Demo Project" />
+          <ListItemText primary="Fridge/Freezer" />
         </ListItem>
       </List>
     )

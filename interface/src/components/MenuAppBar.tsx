@@ -1,10 +1,11 @@
 import React, { RefObject } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { Drawer, AppBar, Toolbar, Avatar, Divider, Button, Box, IconButton } from '@material-ui/core';
+import { Drawer, AppBar, Toolbar, Avatar, Divider, Button, Box, IconButton, Collapse } from '@material-ui/core';
 import { ClickAwayListener, Popper, Hidden, Typography } from '@material-ui/core';
 import { List, ListItem, ListItemIcon, ListItemText, ListItemAvatar } from '@material-ui/core';
 import { Card, CardContent, CardActions } from '@material-ui/core';
+
 
 import { withStyles, createStyles, Theme, WithTheme, WithStyles, withTheme } from '@material-ui/core/styles';
 
@@ -20,6 +21,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ProjectMenu from '../project/ProjectMenu';
 import { PROJECT_NAME } from '../api';
 import { withAuthenticatedContext, AuthenticatedContextProps } from '../authentication';
+//import ProjectConfigMenu from '../project/ProjectConfigMenu';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+
+
+
 
 const drawerWidth = 290;
 
@@ -80,6 +86,8 @@ const styles = (theme: Theme) => createStyles({
 interface MenuAppBarState {
   mobileOpen: boolean;
   authMenuOpen: boolean;
+  openNetwork: boolean;
+  openMisc: boolean;
 }
 
 interface MenuAppBarProps extends AuthenticatedContextProps, WithTheme, WithStyles<typeof styles>, RouteComponentProps {
@@ -92,7 +100,9 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
     super(props);
     this.state = {
       mobileOpen: false,
-      authMenuOpen: false
+      authMenuOpen: false,
+      openNetwork: false,
+      openMisc: false
     };
   }
 
@@ -111,6 +121,10 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
+  };
+
+  handleClick = () => {
+    this.setState({ openNetwork: !this.state.openNetwork });
   };
 
   render() {
@@ -132,30 +146,56 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
         <ProjectMenu />
         <Divider />
         <List>
-          <ListItem to='/wifi/' selected={path.startsWith('/wifi/')} button component={Link}>
-            <ListItemIcon>
-              <WifiIcon />
-            </ListItemIcon>
-            <ListItemText primary="WiFi Connection" />
+        <ListItem to='/config/' selected={path.startsWith('/config/')} button component={Link}>
+                <ListItemIcon>
+                  <WifiIcon />
+                </ListItemIcon>
+                <ListItemText primary="Unit Setup" />
+              </ListItem>
+
+          <ListItem button onClick={this.handleClick}>
+            <ListItemText primary="Networks" />
+            {this.state.openNetwork ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <ListItem to='/ap/' selected={path.startsWith('/ap/')} button component={Link}>
-            <ListItemIcon>
-              <SettingsInputAntennaIcon />
-            </ListItemIcon>
-            <ListItemText primary="Access Point" />
+          <Collapse in={this.state.openNetwork} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+
+              <ListItem to='/wifi/' selected={path.startsWith('/wifi/')} button component={Link}>
+                <ListItemIcon>
+                  <WifiIcon />
+                </ListItemIcon>
+                <ListItemText primary="WiFi Connection" />
+              </ListItem>
+              <ListItem to='/ap/' selected={path.startsWith('/ap/')} button component={Link}>
+                <ListItemIcon>
+                  <SettingsInputAntennaIcon />
+                </ListItemIcon>
+                <ListItemText primary="Access Point" />
+              </ListItem>
+              <ListItem to='/ntp/' selected={path.startsWith('/ntp/')} button component={Link}>
+                <ListItemIcon>
+                  <AccessTimeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Network Time" />
+              </ListItem>
+              <ListItem to='/mqtt/' selected={path.startsWith('/mqtt/')} button component={Link}>
+                <ListItemIcon>
+                  <DeviceHubIcon />
+                </ListItemIcon>
+                <ListItemText primary="MQTT" />
+              </ListItem>
+
+            </List>
+          </Collapse>
+
+          <ListItem button onClick={this.handleClick}>
+            <ListItemText primary="Miscellaneous" />
+            {this.state.openMisc ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <ListItem to='/ntp/' selected={path.startsWith('/ntp/')} button component={Link}>
-            <ListItemIcon>
-              <AccessTimeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Network Time" />
-          </ListItem>
-          <ListItem to='/mqtt/' selected={path.startsWith('/mqtt/')} button component={Link}>
-            <ListItemIcon>
-              <DeviceHubIcon />
-            </ListItemIcon>
-            <ListItemText primary="MQTT" />
-          </ListItem>
+          <Collapse in={this.state.openMisc} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+
+
           <ListItem to='/security/' selected={path.startsWith('/security/')} button component={Link} disabled={!authenticatedContext.me.admin}>
             <ListItemIcon>
               <LockIcon />
@@ -168,6 +208,8 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
             </ListItemIcon>
             <ListItemText primary="System" />
           </ListItem>
+          </List>
+          </Collapse>
         </List>
       </div>
     );
