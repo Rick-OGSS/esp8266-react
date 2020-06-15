@@ -5,7 +5,7 @@ import { SnackbarProvider } from 'notistack';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import AppRouting from './AppRouting';
+import SplashAppRouting from './SplashAppRouting';
 import CustomMuiTheme from './CustomMuiTheme';
 import { PROJECT_NAME } from './api';
 
@@ -36,7 +36,7 @@ class App extends Component {
           )}>
           <Switch>
             <Route exact path="/unauthorized" component={unauthorizedRedirect} />
-            <Route component={AppRouting} />
+            <Route component={SplashAppRouting} />
           </Switch>
         </SnackbarProvider>
       </CustomMuiTheme>

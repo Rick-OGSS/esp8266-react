@@ -16,8 +16,9 @@ import System from './system/System';
 
 import { PROJECT_PATH } from './api';
 import Mqtt from './mqtt/Mqtt';
+import SplashSetupMenuBar from './project/SplashSetupMenuBar'
 
-class AppRouting extends Component {
+class SplashAppRouting extends Component {
 
   componentDidMount() {
     Authentication.clearLoginRedirect();
@@ -27,8 +28,10 @@ class AppRouting extends Component {
     return (
       <AuthenticationWrapper>
         <Switch>
-          <UnauthenticatedRoute exact path="/" component={SignIn} />
+          <UnauthenticatedRoute exact path="/" component={SignIn} />          
+          
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/*`} component={ProjectRouting} />
+          <AuthenticatedRoute exact path="/setup/*" component={SplashSetupMenuBar} />
           <AuthenticatedRoute exact path="/wifi/*" component={WiFiConnection} />         
           <AuthenticatedRoute exact path="/ap/*" component={AccessPoint} />
           <AuthenticatedRoute exact path="/ntp/*" component={NetworkTime} />
@@ -42,4 +45,4 @@ class AppRouting extends Component {
   }
 }
 
-export default AppRouting;
+export default SplashAppRouting;

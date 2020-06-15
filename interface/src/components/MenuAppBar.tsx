@@ -18,7 +18,7 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import LockIcon from '@material-ui/icons/Lock';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import ProjectMenu from '../project/ProjectMenu';
+import SplashStatusMenu from '../project/SplashStatusMenu';
 import { PROJECT_NAME } from '../api';
 import { withAuthenticatedContext, AuthenticatedContextProps } from '../authentication';
 //import ProjectConfigMenu from '../project/ProjectConfigMenu';
@@ -123,12 +123,18 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
-  handleClick = () => {
+  handleNetworkExpand = () => {
     this.setState({ openNetwork: !this.state.openNetwork });
+  };
+
+  handleMiscExpand = () => {
+    this.setState({ openMisc: !this.state.openMisc });
   };
 
   render() {
     const { classes, theme, children, sectionTitle, authenticatedContext } = this.props;
+    // console.group("Menu Props location: ", this.props.location)
+    // console.group("Menu Props Authent Context: ", this.props.authenticatedContext)
     const { mobileOpen, authMenuOpen } = this.state;
     const path = this.props.match.url;
     const drawer = (
@@ -143,17 +149,19 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
           <Divider absolute />
         </Toolbar>
         <Divider />
-        <ProjectMenu />
+        <SplashStatusMenu />
         <Divider />
         <List>
-        <ListItem to='/config/' selected={path.startsWith('/config/')} button component={Link}>
-                <ListItemIcon>
-                  <WifiIcon />
-                </ListItemIcon>
-                <ListItemText primary="Unit Setup" />
-              </ListItem>
+        {/* {console.log("link: ",Link.arguments())} */}
+        {console.log("path: ",path.toString())}
+          <ListItem to='/setup/' selected={path.startsWith('/setup/')} button component={Link}>
+            <ListItemIcon>
+              <WifiIcon />
+            </ListItemIcon>
+            <ListItemText primary="Unit Setup" />
+          </ListItem>
 
-          <ListItem button onClick={this.handleClick}>
+          <ListItem button onClick={this.handleNetworkExpand}>
             <ListItemText primary="Networks" />
             {this.state.openNetwork ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -188,7 +196,7 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
             </List>
           </Collapse>
 
-          <ListItem button onClick={this.handleClick}>
+          <ListItem button onClick={this.handleMiscExpand}>
             <ListItemText primary="Miscellaneous" />
             {this.state.openMisc ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
@@ -196,19 +204,20 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
             <List component="div" disablePadding>
 
 
-          <ListItem to='/security/' selected={path.startsWith('/security/')} button component={Link} disabled={!authenticatedContext.me.admin}>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
-            <ListItemText primary="Security" />
-          </ListItem>
-          <ListItem to='/system/' selected={path.startsWith('/system/')} button component={Link} >
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="System" />
-          </ListItem>
-          </List>
+              <ListItem to='/security/' selected={path.startsWith('/security/')} button component={Link} disabled={!authenticatedContext.me.admin}>
+                <ListItemIcon>
+                  <LockIcon />
+                </ListItemIcon>
+                <ListItemText primary="Security" />
+              </ListItem>
+              <ListItem to='/system/' selected={path.startsWith('/system/')} button component={Link} >
+              
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="System" />
+              </ListItem>
+            </List>
           </Collapse>
         </List>
       </div>
@@ -227,7 +236,7 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap className={classes.title}>
+            <Typography variant="h6" color="inherit" noWrap className={classes.title} align='center'>
               {sectionTitle}
             </Typography>
             <div>

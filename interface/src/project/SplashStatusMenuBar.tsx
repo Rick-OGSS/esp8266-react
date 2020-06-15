@@ -12,7 +12,7 @@ import LightStateRestController from './LightStateRestController';
 import LightStateWebSocketController from './LightStateWebSocketController';
 import LightMqttSettingsController from './LightMqttSettingsController';
 
-class DemoProject extends Component<RouteComponentProps> {
+class SplashStatusMenuBar extends Component<RouteComponentProps> {
 
   handleTabChange = (event: React.ChangeEvent<{}>, path: string) => {
     this.props.history.push(path);
@@ -20,12 +20,12 @@ class DemoProject extends Component<RouteComponentProps> {
 
   render() {
     return (
-      <MenuAppBar sectionTitle="Refrigeration Controller">
+      <MenuAppBar sectionTitle="Refrigeration Controller Status">
         <Tabs value={this.props.match.url} onChange={this.handleTabChange} variant="fullWidth">
-          <Tab value={`/${PROJECT_PATH}/sp70/config`} label="Demo Information" />
-          <Tab value={`/${PROJECT_PATH}/sp70/rest`} label="REST Controller" />
-          <Tab value={`/${PROJECT_PATH}/sp70/socket`} label="WebSocket Controller" />
-          <Tab value={`/${PROJECT_PATH}/sp70/mqtt`} label="MQTT Controller" />
+          <Tab value={`/${PROJECT_PATH}/sp70/status`} label="Current Status" />
+          <Tab value={`/${PROJECT_PATH}/sp70/charts`} label="Charts" />
+          <Tab value={`/${PROJECT_PATH}/sp70/history`} label="History" />
+          <Tab value={`/${PROJECT_PATH}/sp70/alarms`} label="Alarms" />
         </Tabs>
         <Switch>
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/information`} component={DemoInformation} />
@@ -40,4 +40,4 @@ class DemoProject extends Component<RouteComponentProps> {
 
 }
 
-export default DemoProject;
+export default SplashStatusMenuBar;

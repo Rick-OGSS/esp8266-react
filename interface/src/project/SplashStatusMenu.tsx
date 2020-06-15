@@ -6,13 +6,13 @@ import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
 import { PROJECT_PATH } from '../api';
 import { AcUnitOutlined } from '@material-ui/icons';
 
-class ProjectMenu extends Component<RouteComponentProps> {
+class SplashStatusMenu extends Component<RouteComponentProps> {
 
   render() {
     const path = this.props.match.url;
     return (
       <List>
-        <ListItem to={`/${PROJECT_PATH}/sp70/`} selected={path.startsWith(`/${PROJECT_PATH}/sp70/`)} button component={Link}>
+        <ListItem to={`/${PROJECT_PATH}/sp70/`} selected={path.startsWith(`/${PROJECT_PATH}/sp70/status`)} button component={Link}>
           <ListItemIcon>
             <AcUnitOutlined />
           </ListItemIcon>
@@ -24,4 +24,4 @@ class ProjectMenu extends Component<RouteComponentProps> {
 
 }
 
-export default withRouter(ProjectMenu);
+export default withRouter(SplashStatusMenu);

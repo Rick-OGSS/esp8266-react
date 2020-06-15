@@ -1,4 +1,4 @@
-export const configParameters = {
+export const setupDeviceParameters = {
   "overview": [
     {
       "id": 0,
@@ -36,4 +36,4 @@ export const configParameters = {
   ]
 };
 
-export default configParameters;
+export default setupDeviceParameters;
