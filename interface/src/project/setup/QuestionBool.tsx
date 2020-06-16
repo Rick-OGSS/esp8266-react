@@ -14,7 +14,7 @@ const QuestionBool = (help: string, id: number, lastValue: boolean, offText: str
   const [toggleValue, setState] = useState(lastValue);
 
   function updateJSONfile(id: number, value: boolean) {
-    console.log("Updating networkQuestions JSON file for id: ", id, " value: ", value)
+    // console.log("Updating networkQuestions JSON file for id: ", id, " value: ", value)
   }
 
   let theme = createMuiTheme({
@@ -36,10 +36,11 @@ const QuestionBool = (help: string, id: number, lastValue: boolean, offText: str
   };
 
   const handleHelp = () => {
+    console.log(" Help: ",{help})
 
-    return(
-    <Popover open 
-    )
+    // return(
+    // <Popover 
+    // )
   }
 
   return (
@@ -70,7 +71,9 @@ const QuestionBool = (help: string, id: number, lastValue: boolean, offText: str
         <Hidden smDown>
         <TableCell column-width="50%">{help}</TableCell>
         </Hidden>
-        <TableCell column-width="15%"><HelpIcon onChange={handleHelp}/></TableCell>
+        <Hidden mdUp>
+        <TableCell column-width="15%"><HelpIcon onClick={handleHelp}/></TableCell>
+        </Hidden>
       </ThemeProvider>
     </React.Fragment>
   );

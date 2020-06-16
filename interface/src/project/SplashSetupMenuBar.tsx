@@ -30,7 +30,7 @@ class SplashSetupMenuBar extends Component<SplashSetupProps, RouteComponentProps
     const { authenticatedContext} = this.props;
     return (
       <MenuAppBar sectionTitle="Refrigeration Controller Setup">
-        {console.log("Rendering SplashSetupMenuBar")}
+        {/* {console.log("Rendering SplashSetupMenuBar")} */}
         <Tabs value={this.props.match.url} onChange={this.handleTabChange} variant="fullWidth">
           <Tab value="/setup/deviceconfig" label="Device Parameters" />
           <Tab value="/setup/unitconfig" label="Unit Control Parameters" />
