@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Switch from '@material-ui/core/Switch';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -7,6 +6,12 @@ import TableCell from "@material-ui/core/TableCell";
 import { Hidden, Popover, makeStyles } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import setupDeviceParameters from "./setupDeviceParameters"
+import { useForm } from "react-hook-form";
+
+type Inputs = {
+  example: string,
+  exampleRequired: string,
+};
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -14,32 +19,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: string, onText: string, question: string) => {
-
+const QuestionNumber = (help: string, id: number, value: number, offText: string, onText: string, question: string) => {
+  
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [state, setValue] = useState({
-    toggle1: value
-  })
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   let theme = createMuiTheme({
     typography: {
       subtitle1: {
-        fontSize: 10,
+        fontSize: 8,
       },
     }
   });
 
-  const ToggleSwitch = Switch; // allows for styling switch later
-
-  const handleChange = (event: any) => {
-
-    setValue({ ...state, [event.target.name]: event.target.checked });
-
-     let currentIndex = setupDeviceParameters.parameter.findIndex(e => e.id === idSwitch)    
-     setupDeviceParameters.parameter[currentIndex].value = event.target.checked;
-     console.log("id: ", idSwitch," index: ",currentIndex, "value updated to: ", setupDeviceParameters.parameter[currentIndex].value)   
-   };
+  // const ToggleSwitch = Switch; // allows for styling switch later
+  // const handleChange = (event: any) => {
+    
+  //   setupDeviceParameters.parameter[id].value = value;
+  //   console.log("Id; ", id, " last Value updated to: ", setupDeviceParameters.parameter[id].value)
+  // };
 
   const handleHelp = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -52,10 +50,17 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
   const open = Boolean(anchorEl);
   const id1 = open ? 'simple-popover' : undefined;
 
+
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = (data: any) => console.log("onSubmit= ", data);
+
+  //console.log(watch("example")); // watch input value by passing the name of it
+
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <TableCell column-width="10%">{idSwitch}</TableCell>
+        <TableCell column-width="10%">{id}</TableCell>
         <TableCell column-width="30%">{question}</TableCell>
         <TableCell column-width="10%">
           <Typography component="div" variant="subtitle1">
@@ -65,7 +70,20 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
                 <Grid item >{offText}</Grid>
               </Hidden>
               <Grid item>
-                <ToggleSwitch onChange={handleChange} checked={state.toggle1} name="toggle1"/>
+
+                "handleSubmit" will validate your inputs before invoking "onSubmit"
+                <form onSubmit={handleSubmit(onSubmit) }>
+                  {/* register your input into the hook by invoking the "register" function */}
+                  {<input name="example" defaultValue="test default number value" ref={register} />}
+
+                  {/* include validation with required or other standard HTML validation rules */}
+                  <input name="exampleRequired" ref={register({ required: true })} key={id} />
+                  {/* errors will return when field validation fails  */}
+                  {errors.exampleRequired && <span>This field is required text here</span>}
+
+                  <input type="submit" />
+                </form>
+
               </Grid>
               <Hidden xsDown>
                 <Grid item>{onText}</Grid>
@@ -101,4 +119,4 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
   );
 }
 
-export default QuestionBool;
+export default QuestionNumber;

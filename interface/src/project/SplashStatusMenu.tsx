@@ -12,7 +12,7 @@ class SplashStatusMenu extends Component<RouteComponentProps> {
     const path = this.props.match.url;
     return (
       <List>
-        <ListItem to={`/${PROJECT_PATH}/sp70/`} selected={path.startsWith(`/${PROJECT_PATH}/sp70/status`)} button component={Link}>
+        <ListItem to={`/${PROJECT_PATH}/sp70/status`} selected={path.startsWith(`/${PROJECT_PATH}/sp70/status`)} button component={Link}>
           <ListItemIcon>
             <AcUnitOutlined />
           </ListItemIcon>

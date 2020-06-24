@@ -152,9 +152,8 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
         <SplashStatusMenu />
         <Divider />
         <List>
-        {/* {console.log("link: ",Link.arguments())} */}
-        {console.log("path: ",path.toString())}
-          <ListItem to='/setup/' selected={path.startsWith('/setup/')} button component={Link}>
+        {console.log("MenuAppBar path: ",path.toString())}
+          <ListItem to='/setup/deviceconfig' selected={path.startsWith('/setup/')} button component={Link}>
             <ListItemIcon>
               <WifiIcon />
             </ListItemIcon>

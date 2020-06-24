@@ -28,11 +28,11 @@ class SplashStatusMenuBar extends Component<RouteComponentProps> {
           <Tab value={`/${PROJECT_PATH}/sp70/alarms`} label="Alarms" />
         </Tabs>
         <Switch>
-          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/information`} component={DemoInformation} />
+          <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/status`} component={DemoInformation} />
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/rest`} component={LightStateRestController} />
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/socket`} component={LightStateWebSocketController} />
           <AuthenticatedRoute exact path={`/${PROJECT_PATH}/sp70/mqtt`} component={LightMqttSettingsController} />
-          <Redirect to={`/${PROJECT_PATH}/sp70/information`} />
+          <Redirect to={`/${PROJECT_PATH}/sp70/status`} />
         </Switch>
       </MenuAppBar>
     )
