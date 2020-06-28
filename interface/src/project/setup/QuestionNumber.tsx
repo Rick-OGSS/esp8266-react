@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import TableCell from "@material-ui/core/TableCell";
-import { Hidden, Popover, makeStyles } from '@material-ui/core';
+import { Hidden, Popover, makeStyles, Slider } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import setupDeviceParameters from "./setupDeviceParameters"
-import { useForm } from "react-hook-form";
 
-type Inputs = {
-  example: string,
-  exampleRequired: string,
-};
+// type Inputs = {
+//   inputNumber: number
+// };
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
+  slider: {
+    width: 150,
+    color: "secondary"  }
 }));
 
-const QuestionNumber = (help: string, id: number, value: number, offText: string, onText: string, question: string) => {
-  
+const QuestionNumber = (setupData: any) => {
+
+  const [ value, setValue ] = useState(setupData.value)
+
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   let theme = createMuiTheme({
     typography: {
@@ -32,13 +35,6 @@ const QuestionNumber = (help: string, id: number, value: number, offText: string
     }
   });
 
-  // const ToggleSwitch = Switch; // allows for styling switch later
-  // const handleChange = (event: any) => {
-    
-  //   setupDeviceParameters.parameter[id].value = value;
-  //   console.log("Id; ", id, " last Value updated to: ", setupDeviceParameters.parameter[id].value)
-  // };
-
   const handleHelp = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -47,55 +43,73 @@ const QuestionNumber = (help: string, id: number, value: number, offText: string
     setAnchorEl(null);
   };
 
+  const handleChange = (event: any, newValue: any) => {    
+    setValue(newValue);
+    console.log("slider value: ", newValue.toString());
+    let currentIndex = setupDeviceParameters.parameter.findIndex(e => e.id === setupData.id)
+    setupDeviceParameters.parameter[currentIndex].value = newValue;
+    console.log("onSubmit= ", setupData.value, "id: ", setupData.id, " index: ", currentIndex);
+    
+  }
+
   const open = Boolean(anchorEl);
   const id1 = open ? 'simple-popover' : undefined;
 
+  const marks = [
+    {
+      key: 1,
+      value: setupData.min,
+      label: setupData.value > 0.15*(setupData.max-setupData.min)+setupData.min ? setupData.min.toString()+setupData.units:"",
+    },
+    {
+      key: 2,
+      value: setupData.value,
+      label: setupData.value.toString()+setupData.units,
+    },
+    {
+      key: 3,
+      value: setupData.max,
+      label: setupData.value < 0.80*(setupData.max-setupData.min)+setupData.min ? setupData.max.toString()+setupData.units:"",
+    }
 
-  const { register, handleSubmit, watch, errors } = useForm();
-  const onSubmit = (data: any) => console.log("onSubmit= ", data);
-
-  //console.log(watch("example")); // watch input value by passing the name of it
-
+  ];
 
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <TableCell column-width="10%">{id}</TableCell>
-        <TableCell column-width="30%">{question}</TableCell>
-        <TableCell column-width="10%">
+        <TableCell >{setupData.id}</TableCell>
+        <TableCell >{setupData.question}</TableCell>
+        <TableCell >
           <Typography component="div" variant="subtitle1">
             <Grid component="label" container alignItems="center"
               spacing={0} wrap="nowrap">
               <Hidden xsDown>
-                <Grid item >{offText}</Grid>
+                <Grid item >{setupData.offText}</Grid>                
               </Hidden>
               <Grid item>
-
-                "handleSubmit" will validate your inputs before invoking "onSubmit"
-                <form onSubmit={handleSubmit(onSubmit) }>
-                  {/* register your input into the hook by invoking the "register" function */}
-                  {<input name="example" defaultValue="test default number value" ref={register} />}
-
-                  {/* include validation with required or other standard HTML validation rules */}
-                  <input name="exampleRequired" ref={register({ required: true })} key={id} />
-                  {/* errors will return when field validation fails  */}
-                  {errors.exampleRequired && <span>This field is required text here</span>}
-
-                  <input type="submit" />
-                </form>
-
+                <Slider className={classes.slider}
+                  min={setupData.min}
+                  max={setupData.max}
+                  step={setupData.steps}
+                  valueLabelDisplay="auto"
+                  marks={marks}
+                  value={value} 
+                  onChange={handleChange} 
+                  aria-labelledby="continuous-slider"
+                />
               </Grid>
               <Hidden xsDown>
-                <Grid item>{onText}</Grid>
+                <Grid item>{setupData.onText}</Grid>
               </Hidden>
             </Grid>
           </Typography>
         </TableCell>
         <Hidden smDown>
-          <TableCell column-width="50%">{help}</TableCell>
+          <TableCell >{setupData.help}</TableCell>
+        
         </Hidden>
         <Hidden mdUp>
-          <TableCell column-width="5%"><HelpIcon onClick={handleHelp} /></TableCell>
+          <TableCell ><HelpIcon onClick={handleHelp} /></TableCell>
         </Hidden>
         <Popover
           id={id1}
@@ -111,7 +125,7 @@ const QuestionNumber = (help: string, id: number, value: number, offText: string
             horizontal: 'center',
           }}
         >
-          <Typography className={classes.typography}>{help}</Typography>
+          <Typography className={classes.typography}>{setupData.help}</Typography>
         </Popover>
 
       </ThemeProvider>

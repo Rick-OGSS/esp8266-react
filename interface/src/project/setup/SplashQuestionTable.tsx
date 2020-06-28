@@ -16,12 +16,12 @@ import { Hidden, Button } from '@material-ui/core';
 const SplashQuestionTable: React.FC = () => {
   const shortid = require('shortid')
 
-  const question = setupDeviceParameters.parameter.map(e => {
+  const questionTable = setupDeviceParameters.parameter.map(setupData => {
 
-    if (typeof e.value === 'boolean' && e.type === "bool") { return (<TableRow key={e.id}>{QuestionBool(e.help, e.id, e.value, e.offText, e.onText, e.question)}</TableRow>) }
-    if (typeof e.value === 'number' && e.type === "number") { return (<TableRow key={e.id}>{QuestionNumber(e.help, e.id, e.value, e.offText, e.onText, e.question)}</TableRow>) }
-    if (typeof e.value === 'string' && e.type === "string") { return (<TableRow key={e.id}><td></td><td>number question found</td></TableRow>) }
-    if (typeof e.value === 'object' && e.type === "options") { return (<TableRow key={e.id}><td></td><td>options List question found</td></TableRow>) }
+    if (typeof setupData.value === 'boolean' && setupData.type === "bool") { return (<TableRow key={setupData.id}>{QuestionBool(setupData)}</TableRow>) }
+    if (typeof setupData.value === 'number' && setupData.type === "number") { return (<TableRow key={setupData.id}>{QuestionNumber(setupData)}</TableRow>) }
+    if (typeof setupData.value === 'string' && setupData.type === "string") { return (<TableRow key={setupData.id}><td></td><td>string question found</td></TableRow>) }
+    if (typeof setupData.value === 'object' && setupData.type === "options") { return (<TableRow key={setupData.id}><td></td><td>options List question found</td></TableRow>) }
 
     else { return (<tr key={shortid} ><th></th><th>invalid question found</th></tr>) }
   })
@@ -46,12 +46,9 @@ const SplashQuestionTable: React.FC = () => {
             <Hidden smDown>
               <TableCell>Help</TableCell>
             </Hidden>
-
           </TableRow>
         </TableHead>
-        {/* // dont know if i need a key here */}
-        <TableBody >{question}</TableBody>
-
+        <TableBody >{questionTable}</TableBody>
       </Table>
     </Paper>
   )

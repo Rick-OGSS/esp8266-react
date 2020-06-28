@@ -13,30 +13,13 @@ export const setupDeviceParameters = {
       "help": "Question 1 help area...  more info here and here and here more info here and here and here",
       "onText": "go",
       "offText": "stop",
-      "regexp": "",
+      "units": "",
+      "min": 0,
+      "max": 0,
+      "steps": 0,
       "value": true
     },
-    {
-      "id": 2,
-      "type": "bool",
-      "question": "Question 2 from setupParameters array",
-      "help": "Question 2 help area",
-      "onText": "on",
-      "offText": "off",
-      "regexp": "",
-      "value": false
-    }
-    ,
-    {
-      "id": 5,
-      "type": "bool",
-      "question": "Question 5 from setupParameters array",
-      "help": "Question 5 help area",
-      "onText": "on",
-      "offText": "off",
-      "regexp": "",
-      "value": true
-    },
+    
     {
       "id": 3,
       "type": "number",
@@ -44,58 +27,14 @@ export const setupDeviceParameters = {
       "help": "Question 3 help area",
       "onText": "",
       "offText": "",
-      "regexp": "",
-      "value": 77
+      "units": "°C",
+      "min": 5,
+      "max": 25,
+      "steps": 1,
+      "value": 12
     },
-    {
-      "id": 4,
-      "type": "string",
-      "question": "",
-      "help": "",
-      "onText": "",
-      "offText": "",
-      "value": "nothing"
-    },
-    {
-      "id": 6,
-      "type": "bool",
-      "question": "Question 6 from setupParameters array",
-      "help": "Question 6 help area",
-      "onText": "on",
-      "offText": "off",
-      "regexp": "",
-      "value": false
-    },
-    {
-      "id": 7,
-      "type": "bool",
-      "question": "Question 7 from setupParameters array",
-      "help": "Question 7 help area",
-      "onText": "on",
-      "offText": "off",
-      "regexp": "",
-      "value": true
-    },
-    {
-      "id": 8,
-      "type": "number",
-      "question": "Question 8 from setupParameters array",
-      "help": "Question 8 help area",
-      "onText": "",
-      "offText": "",
-      "regexp": "",
-      "value": 77
-    },
-    {
-      "id": 9,
-      "type": "number",
-      "question": "Question 9 from setupParameters array",
-      "help": "Question 9 help area",
-      "onText": "",
-      "offText": "",
-      "regexp": "",
-      "value": 77
-    }
+
+
   ]
 };
 

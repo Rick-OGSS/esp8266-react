@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: string, onText: string, question: string) => {
+const QuestionBool = (setupData: any) => {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [state, setValue] = useState({
-    toggle1: value
+  const [toggleValue, setValue] = useState({
+    toggleSwitch: setupData.value
   })
 
   let theme = createMuiTheme({
@@ -34,11 +34,11 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
 
   const handleChange = (event: any) => {
 
-    setValue({ ...state, [event.target.name]: event.target.checked });
+    setValue({ ...toggleValue, [event.target.name]: event.target.checked });
 
-     let currentIndex = setupDeviceParameters.parameter.findIndex(e => e.id === idSwitch)    
+     let currentIndex = setupDeviceParameters.parameter.findIndex(e => e.id === setupData.id)    
      setupDeviceParameters.parameter[currentIndex].value = event.target.checked;
-     console.log("id: ", idSwitch," index: ",currentIndex, "value updated to: ", setupDeviceParameters.parameter[currentIndex].value)   
+     console.log("id: ", setupData.id," index: ",currentIndex, "value updated to: ", setupDeviceParameters.parameter[currentIndex].value)   
    };
 
   const handleHelp = (event: any) => {
@@ -55,29 +55,29 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <TableCell column-width="10%">{idSwitch}</TableCell>
-        <TableCell column-width="30%">{question}</TableCell>
-        <TableCell column-width="10%">
+        <TableCell >{setupData.id}</TableCell>
+        <TableCell >{setupData.question}</TableCell>
+        <TableCell >
           <Typography component="div" variant="subtitle1">
             <Grid component="label" container alignItems="center"
               spacing={0} wrap="nowrap">
               <Hidden xsDown>
-                <Grid item >{offText}</Grid>
+                <Grid item >{setupData.offText}</Grid>
               </Hidden>
               <Grid item>
-                <ToggleSwitch onChange={handleChange} checked={state.toggle1} name="toggle1"/>
+                <ToggleSwitch onChange={handleChange} checked={toggleValue.toggleSwitch} name="toggleSwitch"/>
               </Grid>
               <Hidden xsDown>
-                <Grid item>{onText}</Grid>
+                <Grid item>{setupData.onText}</Grid>
               </Hidden>
             </Grid>
           </Typography>
         </TableCell>
         <Hidden smDown>
-          <TableCell column-width="50%">{help}</TableCell>
+          <TableCell >{setupData.help}</TableCell>
         </Hidden>
         <Hidden mdUp>
-          <TableCell column-width="5%"><HelpIcon onClick={handleHelp} /></TableCell>
+          <TableCell ><HelpIcon onClick={handleHelp} /></TableCell>
         </Hidden>
         <Popover
           id={id1}
@@ -93,7 +93,7 @@ const QuestionBool = (help: string, idSwitch: number, value: boolean, offText: s
             horizontal: 'center',
           }}
         >
-          <Typography className={classes.typography}>{help}</Typography>
+          <Typography className={classes.typography}>{setupData.help}</Typography>
         </Popover>
 
       </ThemeProvider>

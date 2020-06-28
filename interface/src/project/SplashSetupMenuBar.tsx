@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect, Switch, RouteComponentProps } from 'react-router-dom'
-
 import { Tabs, Tab } from '@material-ui/core';
-
 import { MenuAppBar } from '../components';
 import { AuthenticatedRoute, AuthenticatedContextProps } from '../authentication';
-
 import LightStateRestController from './LightStateRestController';
 import LightMqttSettingsController from './LightMqttSettingsController';
 import SplashDeviceSetup from './SplashDeviceSetup';
@@ -15,19 +12,11 @@ type SplashSetupProps = AuthenticatedContextProps & RouteComponentProps;
 
 class SplashSetupMenuBar extends Component<SplashSetupProps, RouteComponentProps> {
 
-  constructor(props: SplashSetupProps){
-    super(props);
-    // this.state = {
-
-    // }
-  }
-
   handleTabChange = (event: React.ChangeEvent<{}>, path: string) => {
     this.props.history.push(path);
   };
 
   render() {
-    const { authenticatedContext} = this.props;
     return (
       <MenuAppBar sectionTitle="Refrigeration Controller Setup">
         {/* {console.log("Rendering SplashSetupMenuBar")} */}

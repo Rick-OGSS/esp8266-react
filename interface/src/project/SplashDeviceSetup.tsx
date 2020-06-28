@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Typography, Box } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import SplashQuestionTable from './setup/SplashQuestionTable';
 import setupDeviceParameters from './setup/setupDeviceParameters';
+import { SectionContent } from '../components';
 
 var sectionOverview: string = setupDeviceParameters.overview[0].text
 
@@ -9,12 +10,10 @@ class SplashDeviceSetup extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Box m={3} pt={4}>
-          <Typography variant="body1" paragraph gutterBottom align='center'> {sectionOverview}  </Typography>
-        </Box>
+      <SectionContent title='Device Configuration' titleGutter>
+        <Typography variant="body1" paragraph align='center'>{sectionOverview}  </Typography>
         <SplashQuestionTable />
-      </React.Fragment>
+      </SectionContent>
     )
   }
 }
