@@ -17,6 +17,7 @@ export const setupDeviceParameters = {
       "min": 0,
       "max": 0,
       "steps": 0,
+      "regexp": '',
       "value": true
     },
     
@@ -31,8 +32,24 @@ export const setupDeviceParameters = {
       "min": 5,
       "max": 25,
       "steps": 1,
+      "regexp": '',
       "value": 12
     },
+    
+    {
+      "id": 4,
+      "type": "string",
+      "question": "Question 4  text input from setupParameters array",
+      "help": "Question 4 help area",
+      "onText": "",
+      "offText": "",
+      "units": "u",
+      "min": 2,
+      "max": 100,
+      "steps": 0,
+      "regexp": "^[a-zA-Z-_]+$",
+      "value": "oldTextData"
+    }
 
 
   ]

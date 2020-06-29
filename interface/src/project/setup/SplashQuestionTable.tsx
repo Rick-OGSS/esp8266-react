@@ -3,6 +3,7 @@ import React from 'react';
 import setupDeviceParameters from './setupDeviceParameters'
 import QuestionBool from './QuestionBool';
 import QuestionNumber from './QuestionNumber';
+import QuestionString from './QuestionString';
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -20,7 +21,7 @@ const SplashQuestionTable: React.FC = () => {
 
     if (typeof setupData.value === 'boolean' && setupData.type === "bool") { return (<TableRow key={setupData.id}>{QuestionBool(setupData)}</TableRow>) }
     if (typeof setupData.value === 'number' && setupData.type === "number") { return (<TableRow key={setupData.id}>{QuestionNumber(setupData)}</TableRow>) }
-    if (typeof setupData.value === 'string' && setupData.type === "string") { return (<TableRow key={setupData.id}><td></td><td>string question found</td></TableRow>) }
+    if (typeof setupData.value === 'string' && setupData.type === "string") { return (<TableRow key={setupData.id}>{QuestionString(setupData)}</TableRow>) }
     if (typeof setupData.value === 'object' && setupData.type === "options") { return (<TableRow key={setupData.id}><td></td><td>options List question found</td></TableRow>) }
 
     else { return (<tr key={shortid} ><th></th><th>invalid question found</th></tr>) }

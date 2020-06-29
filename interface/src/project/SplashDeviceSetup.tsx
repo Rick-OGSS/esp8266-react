@@ -10,7 +10,7 @@ class SplashDeviceSetup extends Component {
 
   render() {
     return (
-      <SectionContent title='Device Configuration' titleGutter>
+      <SectionContent title='' titleGutter>
         <Typography variant="body1" paragraph align='center'>{sectionOverview}  </Typography>
         <SplashQuestionTable />
       </SectionContent>
