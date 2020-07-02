@@ -52,7 +52,7 @@ const QuestionString = (setupData: any) => {
   // });
   const handleChange = (event: any) => {
     setValue(event.target.value);
-    //console.log("string value: ", event.target.value)
+    console.log("string value: ", value)
     validateChange(event);
   };
 
@@ -62,6 +62,7 @@ const QuestionString = (setupData: any) => {
     if (inputError) {
       setValue("")
       setMsg(" Invalid:  Reverting to saved");
+      
       setLastValue(setupData.value);
     } else {
 

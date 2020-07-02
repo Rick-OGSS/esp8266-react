@@ -49,6 +49,26 @@ export const setupDeviceParameters = {
       "steps": 0,
       "regexp": "^[a-zA-Z-_]+$",
       "value": "oldTextData"
+    },
+    {
+      "id": 5,
+      "type": "options",
+      "question": "Question 5 options input from setupParameters array",
+      "help": "Question 5 help area",
+      "onText": "",
+      "offText": "",
+      "units": "",
+      "min": 0,
+      "max": 0,
+      "steps": 0,
+      "regexp": "",
+      "value": "value3",
+      "selections":  [
+        {option: 'option1', value: 'value1'},
+        {option: 'option2', value: 'value2'},
+        {option: 'option3', value: 'value3'},
+        {option: 'option4', value: 'value4'}
+      ] 
     }
 
 
